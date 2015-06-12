@@ -8,7 +8,7 @@
 
 # Function <a name="function"></a>
 Utility script to assist with downloading mass images from a DeviantArt gallery.
-The script generates a textbox with direct image link urls at the top of a gallery page. Copy and paste the urls into download manager of choice. Tested and works best with [DownThemAll](https://addons.mozilla.org/en-US/firefox/addon/downthemall/) add-on for FireFox. Sample custom filter to select download links `[fc*.deviantart.net/fs,www.deviantart.com/download/]`
+The script generates a textbox with direct image link urls at the top of a gallery page. Copy and paste the urls into download manager of choice. Tested and works best with [DownThemAll](https://addons.mozilla.org/en-US/firefox/addon/downthemall/) add-on for FireFox. Sample custom filter to select download links `[pre??.deviantart.net/,orig??.deviantart.net/,img??.deviantart.net/,www.deviantart.com/download/]`
 
 # Usage <a name="usage"></a>
 * Make sure that click through pagination is turned on and not scroll through or the script will malfunction.
