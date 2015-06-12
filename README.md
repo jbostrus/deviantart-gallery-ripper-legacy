@@ -25,8 +25,9 @@ The script generates a textbox with direct image link urls at the top of a galle
   * ![img](https://dl.dropboxusercontent.com/u/29157236/005%20Complete%20Failed%20with%20List.png)
 
 # Known Issues  <a name="known-issues"></a>
-* <strike>Download URLS in the form of www.deviantart.com/download/ will have a time limit on how long they are valid for. So while downloading a large content list they may expire and fail to download. This is not a bug in the script but a limitation placed by DeviantArt to prevent bots.</strike> Currently download urls are totally broken with download managers.
+* Download URLS are finicky. DA changed some back end code and the only known working download manager is DownThemAll. If you have issues and just want the best possible image urls change the "nodownloads: false" line to "nodownloads: true" in the global vars section after all the code comments.
+* Download URLS in the form of www.deviantart.com/download/ will have a time limit on how long they are valid for. So while downloading a large content list they may expire and fail to download. This is not a bug in the script but a limitation placed by DeviantArt to prevent bots.  They also require the browser's cookies and a proper referer.
 * When browsing a search/gallery and clicking a thumbnail to load full image on HTML5 browsers the GET button disappears. This is because DA hides the panel holding the button. Refreshing the page while viewing the single image will redraw the GET button allowing you to grab all images in the image artist's gallery.
 
 # Change Log <a name="change-log"></a>
-Coming later.
+v1.1.13 Added boolean option in pages object to allow disabling the direct download link offering.
