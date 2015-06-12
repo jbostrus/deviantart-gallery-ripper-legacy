@@ -29,21 +29,32 @@
  * 		This is by design and I don't know of any workaround.
  * 		Button displays appropriate message and is disabled.
  * 		see http://www.chromium.org/developers/design-documents/user-scripts
- * 		this might have been worked around by DA changing their server settings for origins
+ * 		this might have been worked around by DA changing their server
+ * 		settings for origins
  * 
  * 		When browsing a search/gallery and clicking a thumbnail to load full image
  * 		on HTML5 browsers the GET button disappears. This is because DA hides
  * 		the panel holding the button. Refreshing the page while viewing the single
  * 		image will redraw the GET button allowing you to grab all images in the
  * 		single image artist's gallery.
- *
- * 
  */
 
-// Clicking the button will make script locate first page of user gallery 
-// (if viewing image page) then parse out each image in gallery and then 
-// get direct image links for the gallery. If looking at index page of 
-// thumbnails it will start at current page and work deeper. 
+/*
+ Clicking the button will make script locate first page of user gallery
+ (if viewing image page) then parse out each image in gallery and then
+ get direct image links for the gallery. If looking at index page of
+ thumbnails it will start at current page and work deeper.
+*/
+
+/*
+ * special key notes:
+ *
+ * pressing control+alt and clicking on the button will
+ * toggle the debug log to make easy copy/paste for dev support.
+ *
+ * pressing shift and clicking the button will reset the script to start
+ * over again.
+ */
 
 //*************************
 // Global Var's
