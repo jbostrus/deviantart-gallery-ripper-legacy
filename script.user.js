@@ -2,8 +2,8 @@
 // @name           (dm) Deviant Art Gallery Ripper (old slowmode)
 // @namespace      DeviantRipperSlow
 // @description    Click button and generate a list of direct image link urls for all images for a users gallery.
-// @version        1.1.12
-// @lastupdated    2015-06-04
+// @version        1.1.13
+// @lastupdated    2015-06-12
 // @match          *://*.deviantart.com/*
 // @exclude        *://*.deviantart.com/journal/*
 // @exclude        *://*.deviantart.com/prints/*
@@ -45,12 +45,6 @@
 // get direct image links for the gallery. If looking at index page of 
 // thumbnails it will start at current page and work deeper. 
 
-// remove ads
-var scriptDiv = document.createElement("script");
-scriptDiv.innerHTML = "deviantART.deviant.ads=false";
-document.body.appendChild(scriptDiv);
-
-
 //*************************
 // Global Var's
 var ScriptDebug = false;
@@ -69,6 +63,9 @@ function DebugLog (str) {
 //recurse var used for thumbnail pages mainly. if set to non true and button
 //clicked on single page it doesn't really do anything useful.
 var pages = {
+    nodownloads: false, // set to true if you don't want actual download links
+                        // but want the largest possible from page. good to
+                        // use when not using firefox
 	debugLog:	document.createElement('textarea'),
 	debugLogText: '',
 	tableFailed: document.createElement('table'),
@@ -91,14 +88,14 @@ abort_links: false,	// flag to abort link grabbing
 	URLbox: document.createElement('textarea'),
 	GalleryData: {},// holds thumbnail image target info
 	GalleryTemplate: function () {
-		this.isFetched 	= false;	// if page was fetched set during ScanImage
+		//this.isFetched 	= false;	// if page was fetched set during ScanImage
+		//this.id 		= null;		// id of image set during ScanImage
+		//this.ddl		= null;		// ddl link to image file set by ScanImage
+		//this.xhttp		= null;		// xHttpRequest result holder
 		this.Failed		= null;		// flag if page failed to find a image link
 		this.error		= '';		// error value to show on list
 		this.url 		= null;		// url of image page set during ScanGallery
-		this.id 		= null;		// id of image set during ScanImage
-		this.ddl		= null;		// ddl link to image file set by ScanImage
 		this.title		= null;		// title of the image for failure display
-		this.xhttp		= null;		// xHttpRequest result holder
 	},
 	GalleryPages: [], // list of urls to thumbnail pages needed to fetch
 	ToParse: [],	// list of urls of single image pages that need to be parsed for DDL
@@ -528,10 +525,12 @@ var parsers = {
 		if (ScriptDebug && SuperVerbose) { GM_log(pages); }
 	}, // end GetImageLinksOnGalleryPage
 
-	/* 	GetNextGalleryPageLink(docbase)
-		requires docbase: DOM Object
-		returns string of url for next page
-	 */	
+	/*
+	 */
+	/**
+	 * GetNextGalleryPageLink(docbase) requires docbase: DOM Object
+	 * @return {string} of url for next page
+	 */
 	GetNextGalleryPageLink : function (docbase) {
 		DebugLog('Call: GetNextGalleryPageLink()');
 		var newdocbase;
@@ -572,7 +571,7 @@ var callbacks = {
 		DebugLog('Call: ScanImage(' + docbase + ', ' + GalleryIndex + ')');
 		if (SuperVerbose) { DebugLog("docbase code: \n" + docbase.innerHTML); }
 		var dlbutton;
-		var fullimage;
+        var fullimage;
 		var title;
 		var ImageID;
 		
@@ -586,8 +585,8 @@ var callbacks = {
 		//if (ImageID) { ImageID = ImageID.getAttribute('gmi-id'); }
 		DebugLog('ImageID: ' + ImageID);
 
-		pages.GalleryData[GalleryIndex].id = ImageID;
-		pages.GalleryData[GalleryIndex].isFetched = true;
+		//pages.GalleryData[GalleryIndex].id = ImageID;
+		//pages.GalleryData[GalleryIndex].isFetched = true;
 		
 		title = docbase.querySelector('meta[name="og:title"], meta[name="title"]');
 		if (title) { title = title.getAttribute('content'); }
@@ -608,15 +607,15 @@ var callbacks = {
 		 */
 		
 		dlbutton = docbase.querySelector('a#download-button, a.dev-page-download');
-		
-		if (dlbutton) {
-			pages.GalleryData[GalleryIndex].ddl = dlbutton.href;
+
+		if (dlbutton && !pages.nodownloads) {
+			//pages.GalleryData[GalleryIndex].ddl = dlbutton.href;
 			pages.URLs.push(dlbutton.href);
 		}
 		else {
 			fullimage = docbase.querySelector('img[name="gmi-ResViewSizer_fullimg"], img.dev-content-full');
 			if (fullimage) {
-				pages.GalleryData[GalleryIndex].ddl = fullimage.href;
+				//pages.GalleryData[GalleryIndex].ddl = fullimage.href;
 				pages.URLs.push(fullimage.src);
 			} else {
 				// no image found, check for mature filter
