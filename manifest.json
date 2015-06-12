@@ -1,0 +1,16 @@
+{
+   "content_scripts": [ {
+      "exclude_globs": [ "*://*.deviantart.com/journal/*", "*://*.deviantart.com/prints/*", "*://justsitback.deviantart.com/*", "*://groups.deviantart.com/*", "*://shop.deviantart.com/*", "*://chat.deviantart.com/*", "*://today.deviantart.com/*", "*://forum.deviantart.com/*", "*://portfolio.deviantart.com/*", "*://www.deviantart.com/account/*", "*://www.deviantart.com/journals/*", "*://www.deviantart.com/correspondence/*", "*://www.deviantart.com/critiques/*", "*://www.deviantart.com/messages/*" ],
+      "exclude_matches": [  ],
+      "include_globs": [  ],
+      "js": [ "script.user.js" ],
+      "matches": [ "*://*.deviantart.com/*" ],
+      "run_at": "document_idle"
+   } ],
+   "converted_from_user_script": true,
+   "description": "Click button and generate a list of direct image link urls for all images for a users gallery.",
+   "key": "P8eZBDDMFnZi3h7wA53Xiq4pQIdbAEcyKt5qbVSbx0Q=",
+   "name": "(dm) Deviant Art Gallery Ripper (old slowmode)",
+   "version": "1.1.12",
+   "manifest_version": 2
+}
