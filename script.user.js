@@ -2,8 +2,8 @@
 // @name           (dm) Deviant Art Gallery Ripper (old slowmode)
 // @namespace      DeviantRipperSlow
 // @description    Click button and generate a list of direct image link urls for all images for a users gallery.
-// @version        1.1.13
-// @lastupdated    2015-06-12
+// @version        1.1.14
+// @lastupdated    2018-08-12
 // @match          *://*.deviantart.com/*
 // @exclude        *://*.deviantart.com/journal/*
 // @exclude        *://*.deviantart.com/prints/*
@@ -90,7 +90,8 @@ ignorePages: {
 		place items here that are not easily matched to @exclude meta header
 		make expression trigger to true for it to ignore page, false to act normal.
 		*/
-		ProfileTab:		(document.querySelector('li.active > a[gpage_name="userpage"]')) ? true : false
+		ProfileTab:		(document.querySelector('li.active > a[gpage_name="userpage"]')) ? true : false,
+        SingleArt:      (document.URL.indexOf('/art/') > -1) ? true : false
 	},
 abort_links: false,	// flag to abort link grabbing
 	Current: 0,		// current counter reused for image and gallery parsing
@@ -298,6 +299,7 @@ abort_links: false,	// flag to abort link grabbing
 		urlList.style['width'] = '100%';
 		urlList.innerHTML = pages.URLs.join('\r\n');
 		urlList.style['display'] = '';
+        urlList.select();
 		pages.fetchStatus = 4;
 		if (pages.TotalImages !== pages.URLs.length) {
 			pages.btn.btnID.value = 'Some pages failed to find links (found ' + pages.URLs.length + ' of ' + pages.TotalImages + ')';
