@@ -30,4 +30,4 @@ The script generates a textbox with direct image link urls at the top of a galle
 * When browsing a search/gallery and clicking a thumbnail to load full image on HTML5 browsers the GET button disappears. This is because DA hides the panel holding the button. Refreshing the page while viewing the single image will redraw the GET button allowing you to grab all images in the image artist's gallery.
 
 # Change Log
-v1.1.13 Added boolean option in pages object to allow disabling the direct download link offering.
+v1.1.14 Added ignore entry for single art pages so it no longer draws a download button on the full image page. Should only show up on galleries.
